@@ -337,6 +337,9 @@
         "license": {
           "type": "string"
         },
+        "sourcePlugin": {
+          "$ref": "#/$defs/sourcePlugin"
+        },
         "versions": {
           "type": "object",
           "minProperties": 1,
@@ -376,6 +379,25 @@
         },
         "notes": {
           "type": "string"
+        }
+      }
+    },
+    "sourcePlugin": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+([a-z0-9-]*[a-z0-9]+)?$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+(?:\\.[0-9]+){0,2}(?:[-+][a-z0-9.-]+)?$"
         }
       }
     }

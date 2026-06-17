@@ -7,7 +7,7 @@
     "name": "Canvas Studios"
   },
   "homepage": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace",
-  "updatedAt": "2026-06-17T14:30:00.000Z",
+  "updatedAt": "2026-06-17T13:25:48.982Z",
   "plugins": [
     {
       "name": "canvas-basics",
@@ -100,7 +100,10 @@
           {
             "kind": "mailbox",
             "label": "Sales inbox",
-            "providers": ["gmail", "imap-smtp"],
+            "providers": [
+              "gmail",
+              "imap-smtp"
+            ],
             "recommended": true,
             "reason": "Read and send sales emails through Canvas Email, not through Composio Gmail."
           }
@@ -111,7 +114,9 @@
             "label": "Sales Research MCP",
             "configPath": "./connectors/sales-research.mcp.json",
             "recommended": true,
-            "env": ["SALES_RESEARCH_API_KEY"],
+            "env": [
+              "SALES_RESEARCH_API_KEY"
+            ],
             "oauth": true,
             "reason": "Optional external research tools for prospect and account enrichment."
           }
@@ -136,25 +141,226 @@
   ],
   "skills": [
     {
-      "name": "marp-slides",
-      "displayName": "Marp Slides",
-      "description": "Create, edit, review, and export polished Marp Markdown slide decks in Canvas Notebook.",
-      "category": "Presentations",
+      "name": "canvas-basics-check",
+      "displayName": "Canvas Basics Check",
+      "description": "Use this skill when you need to verify that Canvas Plugin discovery, installation, skill loading, and plugin references are working.",
+      "category": "System",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.0.0",
+      "brandColor": "#2563EB",
+      "license": "MIT",
+      "sourcePlugin": {
+        "name": "canvas-basics",
+        "displayName": "Canvas Basics",
+        "version": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "version": "1.0.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/canvas-basics-v1.0.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-canvas-basics-v1.0.0/plugins/canvas-basics/1.0.0/skills/canvas-basics-check",
+          "checksum": "sha256:d21e62b18c7dfb79cda707ac0463df455028a516e141c3061afc7758b86e8638",
+          "releasedAt": "2026-06-17T12:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Standalone skill curated from Canvas Basics."
+        }
+      }
+    },
+    {
+      "name": "docx",
+      "displayName": "DOCX",
+      "description": "Use this Canvas-owned clean-room skill for creating, reading, editing, reviewing, redlining, commenting, or repairing Word `.docx` documents. Trigger for Word documents, DOCX files, memos, reports, letters, templates, tracked changes, comments, table of contents, headers, footers, page numbers, and Google Docs-targeted documents that should be authored as DOCX first.",
+      "category": "Documents",
       "publisher": {
         "name": "Canvas Studios"
       },
       "latestVersion": "1.1.0",
       "brandColor": "#2563EB",
       "license": "MIT",
+      "sourcePlugin": {
+        "name": "document-suite",
+        "displayName": "Document Suite",
+        "version": "1.1.0"
+      },
       "versions": {
         "1.1.0": {
           "version": "1.1.0",
-          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/marp-slides-v1.1.0.zip",
-          "packagePath": "canvas-notebook-plugin-marketplace-marp-slides-v1.1.0/skills/marp-slides/1.1.0",
-          "checksum": "sha256:bf79c34ab6bb540589a2453df02c94d68342346a0bb8aca5c1f6122eb2a113a1",
-          "releasedAt": "2026-06-17T14:30:00.000Z",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.1.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.1.0/plugins/document-suite/1.1.0/skills/docx",
+          "checksum": "sha256:4e15a7e0f370ba2b75cadee11c1ad61e569a34806ee1c1627b870eef18641395",
+          "releasedAt": "2026-06-17T14:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
-          "notes": "Initial standalone Marp Slides skill package for Canvas Skill Library."
+          "notes": "Standalone skill curated from Document Suite."
+        }
+      }
+    },
+    {
+      "name": "excalidraw-diagram",
+      "displayName": "Excalidraw Diagram",
+      "description": "Create or edit Canvas Notebook .excalidraw files for diagrams, flows, sketches, architecture maps, and visual explanations. Use when the user asks for an Excalidraw drawing, diagram, board, sketch, canvas, flowchart, architecture diagram, or when a file ending in .excalidraw should be generated. Output only the .excalidraw file unless the user explicitly asks for another artifact.",
+      "category": "Documents",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.1.0",
+      "brandColor": "#F59E0B",
+      "license": "MIT",
+      "sourcePlugin": {
+        "name": "document-suite",
+        "displayName": "Document Suite",
+        "version": "1.1.0"
+      },
+      "versions": {
+        "1.1.0": {
+          "version": "1.1.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.1.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.1.0/plugins/document-suite/1.1.0/skills/excalidraw-diagram",
+          "checksum": "sha256:0bb8b15bd4a5b3173b35a448a1b9c2a7029e08478e05203c86ac84ada2352381",
+          "releasedAt": "2026-06-17T14:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Standalone skill curated from Document Suite."
+        }
+      }
+    },
+    {
+      "name": "marp-slides",
+      "displayName": "Marp Slides",
+      "description": "Create, edit, review, and export polished Marp Markdown slide decks in Canvas Notebook. Use when the user wants Markdown-based presentations, `.marp.md` or `.slides.md` files, fast version-controlled decks, Marp PDF/image/PPTX export, speaker notes, presentation outlines, or better looking slides that should stay close to plain text.",
+      "category": "Documents",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.1.0",
+      "brandColor": "#2563EB",
+      "license": "MIT",
+      "sourcePlugin": {
+        "name": "document-suite",
+        "displayName": "Document Suite",
+        "version": "1.1.0"
+      },
+      "versions": {
+        "1.1.0": {
+          "version": "1.1.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.1.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.1.0/plugins/document-suite/1.1.0/skills/marp-slides",
+          "checksum": "sha256:8c26c72dc0dcf87594c3bead010099f592481e0b8abac1510fd758e865b6b940",
+          "releasedAt": "2026-06-17T14:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Standalone skill curated from Document Suite."
+        }
+      }
+    },
+    {
+      "name": "pdf",
+      "displayName": "PDF",
+      "description": "Use this Canvas-owned clean-room skill for PDF work where layout, extraction, generation, forms, page operations, or visual verification matter. Trigger for reading PDFs beyond plain text, creating PDFs, merging, splitting, rotating, watermarking, extracting tables or images, filling forms, OCR handoff, and final PDF QA.",
+      "category": "Documents",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.1.0",
+      "brandColor": "#DC2626",
+      "license": "MIT",
+      "sourcePlugin": {
+        "name": "document-suite",
+        "displayName": "Document Suite",
+        "version": "1.1.0"
+      },
+      "versions": {
+        "1.1.0": {
+          "version": "1.1.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.1.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.1.0/plugins/document-suite/1.1.0/skills/pdf",
+          "checksum": "sha256:303fcd133dc4ec3cbb8d3fb162a75a9882659d19faa87c3b7feaca403fa50a15",
+          "releasedAt": "2026-06-17T14:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Standalone skill curated from Document Suite."
+        }
+      }
+    },
+    {
+      "name": "pptx",
+      "displayName": "PPTX",
+      "description": "Use this Canvas-owned clean-room skill whenever a PowerPoint `.pptx` deck is an input or output. Trigger for creating, editing, reviewing, repairing, templating, combining, splitting, rendering, or extracting slide decks, including pitch decks, reports, speaker notes, template-following, and Google Slides-targeted handoff.",
+      "category": "Documents",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.1.0",
+      "brandColor": "#C43E1C",
+      "license": "MIT",
+      "sourcePlugin": {
+        "name": "document-suite",
+        "displayName": "Document Suite",
+        "version": "1.1.0"
+      },
+      "versions": {
+        "1.1.0": {
+          "version": "1.1.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.1.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.1.0/plugins/document-suite/1.1.0/skills/pptx",
+          "checksum": "sha256:85162e27da51cb7efada152125d70747a6e3829e5196292430c0ab9a02cdb3ca",
+          "releasedAt": "2026-06-17T14:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Standalone skill curated from Document Suite."
+        }
+      }
+    },
+    {
+      "name": "sales-connector-readiness",
+      "displayName": "Sales Connector Readiness",
+      "description": "Use this skill to review whether recommended sales connectors are available before running sales workflows.",
+      "category": "Sales",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.0.0",
+      "brandColor": "#0F766E",
+      "license": "MIT",
+      "sourcePlugin": {
+        "name": "sales-connectors-demo",
+        "displayName": "Sales Connectors Demo",
+        "version": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "version": "1.0.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/sales-connectors-demo-v1.0.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-sales-connectors-demo-v1.0.0/plugins/sales-connectors-demo/1.0.0/skills/sales-connector-readiness",
+          "checksum": "sha256:f8caea620e20a6feb821ee5fee25a5394bef2a030b6674fa4304d4663cbedaca",
+          "releasedAt": "2026-06-17T13:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Standalone skill curated from Sales Connectors Demo."
+        }
+      }
+    },
+    {
+      "name": "xlsx",
+      "displayName": "XLSX",
+      "description": "Use this Canvas-owned clean-room skill when a spreadsheet file is the primary input or output. Trigger for `.xlsx`, `.xls`, `.xlsm`, `.csv`, `.tsv`, workbooks, templates, trackers, models, dashboards, charts, formulas, data cleaning, formatting, validation, recalculation, and Google Sheets-targeted handoff.",
+      "category": "Documents",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.1.0",
+      "brandColor": "#107C41",
+      "license": "MIT",
+      "sourcePlugin": {
+        "name": "document-suite",
+        "displayName": "Document Suite",
+        "version": "1.1.0"
+      },
+      "versions": {
+        "1.1.0": {
+          "version": "1.1.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.1.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.1.0/plugins/document-suite/1.1.0/skills/xlsx",
+          "checksum": "sha256:4adcca554febd3c107194a8d695493063a34cb0a93b252dc1f96c69f08f4e6f7",
+          "releasedAt": "2026-06-17T14:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Standalone skill curated from Document Suite."
         }
       }
     }

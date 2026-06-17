@@ -3,7 +3,7 @@
 Official plugin marketplace registry for Canvas Notebook.
 
 This repository is the first public registry source for Canvas Plugins. Canvas Notebook can read `registry.json`, show available plugins in the app, and install versioned plugin packages from this repository.
-The same registry can also publish standalone Canvas Skills for the Skill Library.
+The same registry also publishes curated standalone Canvas Skills for the Skill Library. Most standalone skill entries are sourced from plugin skill folders and point to a skill subdirectory inside the plugin archive.
 
 ## Repository Layout
 
@@ -26,6 +26,7 @@ skills/
 ```
 
 Plugin and skill versions are immutable. To publish an update, add a new version directory such as `plugins/example/1.1.0/` or `skills/example-skill/1.1.0/` and update `registry.json`.
+Standalone skill entries may either point at `skills/<skill-name>/<version>/` or at a curated `plugins/<plugin>/<version>/skills/<skill-name>/` path through `sourcePlugin`.
 
 ## Registry Sources
 
@@ -69,7 +70,14 @@ Every standalone skill package must include:
 
 | Skill | Version | Purpose |
 | --- | --- | --- |
+| Canvas Basics Check | 1.0.0 | Validate Canvas Plugin discovery, installation, references, and bundled skill loading. |
+| DOCX | 1.1.0 | Create, edit, review, and verify Word-compatible documents. |
+| Excalidraw Diagram | 1.1.0 | Create editable `.excalidraw` diagram files. |
 | Marp Slides | 1.1.0 | Markdown-native presentation decks with Canvas preview/export guidance. |
+| PDF | 1.1.0 | Read, create, extract, transform, and verify PDFs. |
+| PPTX | 1.1.0 | Create, edit, review, and verify PowerPoint decks. |
+| Sales Connector Readiness | 1.0.0 | Check recommended sales connector readiness. |
+| XLSX | 1.1.0 | Create, edit, analyze, and verify spreadsheet workbooks. |
 
 ## Local Validation
 
