@@ -7,7 +7,7 @@
     "name": "Canvas Studios"
   },
   "homepage": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace",
-  "updatedAt": "2026-06-17T14:00:00.000Z",
+  "updatedAt": "2026-06-17T14:30:00.000Z",
   "plugins": [
     {
       "name": "canvas-basics",
@@ -130,6 +130,31 @@
           "releasedAt": "2026-06-17T13:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Initial connector recommendation demo for Composio, Canvas Email, and MCP."
+        }
+      }
+    }
+  ],
+  "skills": [
+    {
+      "name": "marp-slides",
+      "displayName": "Marp Slides",
+      "description": "Create, edit, review, and export polished Marp Markdown slide decks in Canvas Notebook.",
+      "category": "Presentations",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.1.0",
+      "brandColor": "#2563EB",
+      "license": "MIT",
+      "versions": {
+        "1.1.0": {
+          "version": "1.1.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/marp-slides-v1.1.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-marp-slides-v1.1.0/skills/marp-slides/1.1.0",
+          "checksum": "sha256:bf79c34ab6bb540589a2453df02c94d68342346a0bb8aca5c1f6122eb2a113a1",
+          "releasedAt": "2026-06-17T14:30:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Initial standalone Marp Slides skill package for Canvas Skill Library."
         }
       }
     }
