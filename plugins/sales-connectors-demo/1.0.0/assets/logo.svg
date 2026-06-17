@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80" role="img" aria-label="Sales Connectors Demo">
+  <rect width="260" height="80" rx="20" fill="#F8FAFC"/>
+  <rect x="16" y="16" width="48" height="48" rx="14" fill="#0F766E"/>
+  <path d="M28 51V30C28 27.791 29.791 26 32 26h16C50.209 26 52 27.791 52 30v21C52 52.657 50.657 54 49 54H31C29.343 54 28 52.657 28 51Z" fill="#FFFFFF" opacity=".96"/>
+  <path d="M34 35h12M34 41h8" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+  <path d="M45 43.5l2.5 2.5 5-6" stroke="#F97316" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="80" y="36" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">Sales Connectors Demo</text>
+  <text x="80" y="57" font-family="Inter, Arial, sans-serif" font-size="12" fill="#64748B">Composio, Email and MCP recommendations</text>
+</svg>
+

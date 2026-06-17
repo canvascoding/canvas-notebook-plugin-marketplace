@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Sales Connectors Demo">
+  <rect width="64" height="64" rx="16" fill="#0F766E"/>
+  <path d="M18 42.5V25.25C18 22.902 19.902 21 22.25 21h19.5C44.098 21 46 22.902 46 25.25V42.5C46 44.433 44.433 46 42.5 46h-21C19.567 46 18 44.433 18 42.5Z" fill="#FFFFFF" opacity=".96"/>
+  <path d="M24 29h16M24 35h10" stroke="#0F766E" stroke-width="4" stroke-linecap="round"/>
+  <path d="M39 38.5l3 3 6-7" stroke="#F97316" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+

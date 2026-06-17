@@ -112,14 +112,149 @@
         "mcp": {
           "type": "array",
           "items": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/mcpConnector"
+              }
+            ]
           }
         },
         "composio": {
           "type": "array",
           "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/composioConnector"
+              }
+            ]
+          }
+        },
+        "email": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/emailConnector"
+          }
+        }
+      }
+    },
+    "connectorBase": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "recommended": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "composioConnector": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/connectorBase"
+        },
+        {
+          "type": "object",
+          "required": ["toolkit"],
+          "additionalProperties": false,
+          "properties": {
+            "toolkit": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "recommended": {
+              "type": "boolean"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "tools": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "emailConnector": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["mailbox"]
+        },
+        "label": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "recommended": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["gmail", "imap-smtp"]
+          }
+        }
+      }
+    },
+    "mcpConnector": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "recommended": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "configPath": {
+          "type": "string"
+        },
+        "env": {
+          "type": "array",
+          "items": {
             "type": "string"
           }
+        },
+        "oauth": {
+          "type": "boolean"
         }
       }
     },

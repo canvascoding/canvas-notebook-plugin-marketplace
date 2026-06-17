@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "sales-research": {
+      "transport": "streamable-http",
+      "url": "https://example.com/mcp/sales-research",
+      "headersFromEnv": {
+        "Authorization": "SALES_RESEARCH_API_KEY"
+      },
+      "oauth": {
+        "enabled": true
+      },
+      "enabled": false
+    }
+  }
+}
+

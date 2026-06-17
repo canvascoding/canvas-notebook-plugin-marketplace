@@ -1,0 +1,7 @@
+interface:
+  display_name: "Sales Connector Readiness"
+  short_description: "Check recommended sales connector readiness"
+  icon_small: "../../assets/icon.svg"
+  brand_color: "#0F766E"
+  default_prompt: "Use /sales-connector-readiness to inspect sales connector readiness."
+

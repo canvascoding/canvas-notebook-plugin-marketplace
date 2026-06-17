@@ -48,6 +48,7 @@ Connector metadata may reference MCP servers or Composio toolkits, but secrets m
 | Plugin | Version | Purpose |
 | --- | --- | --- |
 | Canvas Basics | 1.0.0 | Smoke-test plugin for Canvas Plugin installation, discovery, icons, and bundled skills. |
+| Sales Connectors Demo | 1.0.0 | Demo plugin for Composio, Canvas Email, and MCP connector recommendations. |
 
 ## Local Validation
 

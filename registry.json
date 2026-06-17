@@ -7,7 +7,7 @@
     "name": "Canvas Studios"
   },
   "homepage": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace",
-  "updatedAt": "2026-06-17T12:00:00.000Z",
+  "updatedAt": "2026-06-17T13:00:00.000Z",
   "plugins": [
     {
       "name": "canvas-basics",
@@ -37,6 +37,63 @@
           "releasedAt": "2026-06-17T12:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Initial smoke-test plugin for Canvas Plugin runtime and UI validation."
+        }
+      }
+    },
+    {
+      "name": "sales-connectors-demo",
+      "displayName": "Sales Connectors Demo",
+      "description": "Demo plugin for validating connector recommendations across Composio, Canvas Email, and MCP.",
+      "category": "Sales",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.0.0",
+      "icon": "plugins/sales-connectors-demo/1.0.0/assets/icon.svg",
+      "brandColor": "#0F766E",
+      "connectors": {
+        "composio": [
+          {
+            "toolkit": "hubspot",
+            "label": "HubSpot",
+            "recommended": true,
+            "reason": "Use CRM records and company data during sales workflows."
+          }
+        ],
+        "email": [
+          {
+            "kind": "mailbox",
+            "label": "Sales inbox",
+            "providers": ["gmail", "imap-smtp"],
+            "recommended": true,
+            "reason": "Read and send sales emails through Canvas Email, not through Composio Gmail."
+          }
+        ],
+        "mcp": [
+          {
+            "name": "sales-research",
+            "label": "Sales Research MCP",
+            "configPath": "./connectors/sales-research.mcp.json",
+            "recommended": true,
+            "env": ["SALES_RESEARCH_API_KEY"],
+            "oauth": true,
+            "reason": "Optional external research tools for prospect and account enrichment."
+          }
+        ]
+      },
+      "skills": [
+        "sales-connector-readiness"
+      ],
+      "versions": {
+        "1.0.0": {
+          "version": "1.0.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/sales-connectors-demo-v1.0.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-sales-connectors-demo-v1.0.0/plugins/sales-connectors-demo/1.0.0",
+          "checksum": "sha256:33e9ac896cdd06f5ec5571d6d10536338c03999edbdbb060539b35a8c0be8178",
+          "manifestPath": ".canvas-plugin/plugin.json",
+          "releasedAt": "2026-06-17T13:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Initial connector recommendation demo for Composio, Canvas Email, and MCP."
         }
       }
     }
