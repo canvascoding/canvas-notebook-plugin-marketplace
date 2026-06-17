@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/canvascoding/canvas-notebook-plugin-marketplace/main/schemas/registry.schema.json",
+  "title": "Canvas Plugin Marketplace Registry",
+  "type": "object",
+  "required": ["schemaVersion", "id", "name", "updatedAt", "plugins"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+([a-z0-9-]*[a-z0-9]+)?$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publisher": {
+      "$ref": "#/$defs/publisher"
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "plugins": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/plugin"
+      }
+    }
+  },
+  "$defs": {
+    "publisher": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "plugin": {
+      "type": "object",
+      "required": ["name", "displayName", "description", "latestVersion", "versions"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+([a-z0-9-]*[a-z0-9]+)?$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string"
+        },
+        "publisher": {
+          "$ref": "#/$defs/publisher"
+        },
+        "latestVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+(?:\\.[0-9]+){0,2}(?:[-+][a-z0-9.-]+)?$"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "brandColor": {
+          "type": "string"
+        },
+        "connectors": {
+          "$ref": "#/$defs/connectors"
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "versions": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/pluginVersion"
+          }
+        }
+      }
+    },
+    "connectors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mcp": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "composio": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pluginVersion": {
+      "type": "object",
+      "required": ["version", "downloadUrl", "checksum", "manifestPath"],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+(?:\\.[0-9]+){0,2}(?:[-+][a-z0-9.-]+)?$"
+        },
+        "downloadUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "checksum": {
+          "type": "string",
+          "pattern": "^(sha256:)?[a-fA-F0-9]{64}$"
+        },
+        "manifestPath": {
+          "type": "string",
+          "default": ".canvas-plugin/plugin.json"
+        },
+        "releasedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "minCanvasVersion": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+

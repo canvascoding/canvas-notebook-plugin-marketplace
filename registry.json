@@ -1,0 +1,13 @@
+{
+  "$schema": "./schemas/registry.schema.json",
+  "schemaVersion": 1,
+  "id": "canvas-official",
+  "name": "Canvas Plugin Store",
+  "publisher": {
+    "name": "Canvas Studios"
+  },
+  "homepage": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace",
+  "updatedAt": "2026-06-17T00:00:00.000Z",
+  "plugins": []
+}
+
