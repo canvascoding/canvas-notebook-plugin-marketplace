@@ -1,0 +1,23 @@
+{
+  "name": "canvas-basics",
+  "version": "1.0.0",
+  "description": "Starter plugin for validating Canvas Plugin installation, discovery, icons, and bundled skills.",
+  "license": "MIT",
+  "author": {
+    "name": "Canvas Studios"
+  },
+  "source": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/tree/main/plugins/canvas-basics/1.0.0",
+  "skills": "./skills",
+  "interface": {
+    "displayName": "Canvas Basics",
+    "shortDescription": "Validate plugin installation and bundled skills",
+    "category": "System",
+    "brandColor": "#2563EB",
+    "icon": "./assets/icon.svg",
+    "logo": "./assets/logo.svg",
+    "defaultPrompt": [
+      "Use /canvas-basics-check to verify that Canvas Plugins are installed and available."
+    ]
+  }
+}
+

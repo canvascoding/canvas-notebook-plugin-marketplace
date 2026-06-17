@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Canvas Basics">
+  <rect width="64" height="64" rx="16" fill="#2563EB"/>
+  <path d="M18 20.5C18 17.462 20.462 15 23.5 15h17C43.538 15 46 17.462 46 20.5v23C46 46.538 43.538 49 40.5 49h-17C20.462 49 18 46.538 18 43.5v-23Z" fill="#FFFFFF" opacity=".96"/>
+  <path d="M25 25h14M25 32h14M25 39h8" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
+</svg>
+

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Canvas Basics Check"
+  short_description: "Verify plugin discovery and bundled skill loading"
+  icon_small: "../../assets/icon.svg"
+  brand_color: "#2563EB"
+  default_prompt: "Use /canvas-basics-check to verify the Canvas Plugin runtime."
+

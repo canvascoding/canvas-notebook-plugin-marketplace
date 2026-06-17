@@ -7,7 +7,38 @@
     "name": "Canvas Studios"
   },
   "homepage": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace",
-  "updatedAt": "2026-06-17T00:00:00.000Z",
-  "plugins": []
+  "updatedAt": "2026-06-17T12:00:00.000Z",
+  "plugins": [
+    {
+      "name": "canvas-basics",
+      "displayName": "Canvas Basics",
+      "description": "Starter plugin for validating Canvas Plugin installation, discovery, icons, and bundled skills.",
+      "category": "System",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.0.0",
+      "icon": "plugins/canvas-basics/1.0.0/assets/icon.svg",
+      "brandColor": "#2563EB",
+      "connectors": {
+        "mcp": [],
+        "composio": []
+      },
+      "skills": [
+        "canvas-basics-check"
+      ],
+      "versions": {
+        "1.0.0": {
+          "version": "1.0.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/canvas-basics-v1.0.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-canvas-basics-v1.0.0/plugins/canvas-basics/1.0.0",
+          "checksum": "sha256:afcc4e8c53c63b3fb0b4fe5af1879740b37948c9781b3310c1cd92d6499b439b",
+          "manifestPath": ".canvas-plugin/plugin.json",
+          "releasedAt": "2026-06-17T12:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Initial smoke-test plugin for Canvas Plugin runtime and UI validation."
+        }
+      }
+    }
+  ]
 }
-

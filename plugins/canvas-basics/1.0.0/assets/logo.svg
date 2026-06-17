@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" role="img" aria-label="Canvas Basics">
+  <rect width="240" height="80" rx="20" fill="#F8FAFC"/>
+  <rect x="16" y="16" width="48" height="48" rx="14" fill="#2563EB"/>
+  <path d="M28 29.5C28 27.567 29.567 26 31.5 26h17C50.433 26 52 27.567 52 29.5v21C52 52.433 50.433 54 48.5 54h-17C29.567 54 28 52.433 28 50.5v-21Z" fill="#FFFFFF" opacity=".96"/>
+  <path d="M34 35h12M34 40h12M34 45h7" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+  <text x="80" y="36" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">Canvas Basics</text>
+  <text x="80" y="57" font-family="Inter, Arial, sans-serif" font-size="12" fill="#64748B">Plugin runtime smoke test</text>
+</svg>
+

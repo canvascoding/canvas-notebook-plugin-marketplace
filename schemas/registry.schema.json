@@ -136,6 +136,10 @@
           "type": "string",
           "format": "uri"
         },
+        "packagePath": {
+          "type": "string",
+          "description": "Optional path to the plugin package inside a downloaded archive."
+        },
         "checksum": {
           "type": "string",
           "pattern": "^(sha256:)?[a-fA-F0-9]{64}$"
@@ -158,4 +162,3 @@
     }
   }
 }
-

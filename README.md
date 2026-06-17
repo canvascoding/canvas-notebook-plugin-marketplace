@@ -43,7 +43,12 @@ Every plugin package must include:
 
 Connector metadata may reference MCP servers or Composio toolkits, but secrets must stay in Canvas Notebook's integration settings.
 
+## Included Plugins
+
+| Plugin | Version | Purpose |
+| --- | --- | --- |
+| Canvas Basics | 1.0.0 | Smoke-test plugin for Canvas Plugin installation, discovery, icons, and bundled skills. |
+
 ## Local Validation
 
 Validation is implemented in Canvas Notebook. During development, install a plugin through the Canvas Notebook advanced local install flow or the plugin runtime test before publishing it here.
-
