@@ -7,7 +7,7 @@
     "name": "Canvas Studios"
   },
   "homepage": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace",
-  "updatedAt": "2026-06-17T13:00:00.000Z",
+  "updatedAt": "2026-06-17T14:00:00.000Z",
   "plugins": [
     {
       "name": "canvas-basics",
@@ -37,6 +37,42 @@
           "releasedAt": "2026-06-17T12:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Initial smoke-test plugin for Canvas Plugin runtime and UI validation."
+        }
+      }
+    },
+    {
+      "name": "document-suite",
+      "displayName": "Document Suite",
+      "description": "Bundled Canvas document workflows for PDF, PowerPoint, Excel, Word, Marp Markdown slides, and Excalidraw diagrams.",
+      "category": "Documents",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.1.0",
+      "icon": "plugins/document-suite/1.1.0/assets/icon.svg",
+      "brandColor": "#2563EB",
+      "connectors": {
+        "mcp": [],
+        "composio": []
+      },
+      "skills": [
+        "docx",
+        "excalidraw-diagram",
+        "marp-slides",
+        "pdf",
+        "pptx",
+        "xlsx"
+      ],
+      "versions": {
+        "1.1.0": {
+          "version": "1.1.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.1.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.1.0/plugins/document-suite/1.1.0",
+          "checksum": "sha256:b338b8c42ee629204d6db6314cdc773ae30d0751f54adc1fcc2a880e2648a521",
+          "manifestPath": ".canvas-plugin/plugin.json",
+          "releasedAt": "2026-06-17T14:00:00.000Z",
+          "minCanvasVersion": "2026.6.11.1",
+          "notes": "Adds Marp Markdown slide authoring to the office document workflow bundle."
         }
       }
     },
