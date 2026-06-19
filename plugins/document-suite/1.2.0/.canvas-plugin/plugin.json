@@ -1,0 +1,27 @@
+{
+  "name": "document-suite",
+  "version": "1.2.0",
+  "description": "Bundled Canvas document workflows for PDF, PowerPoint, Excel, Word, Marp Markdown slides, and Excalidraw diagrams.",
+  "license": "MIT",
+  "author": {
+    "name": "Canvas Studios"
+  },
+  "source": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/tree/main/plugins/document-suite/1.2.0",
+  "skills": "./skills",
+  "interface": {
+    "displayName": "Document Suite",
+    "shortDescription": "PDF, PowerPoint, Excel, Word, Marp, and diagram workflows",
+    "category": "Documents",
+    "brandColor": "#2563EB",
+    "icon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg",
+    "defaultPrompt": [
+      "Use /document-suite for document, spreadsheet, Marp slide, PowerPoint, PDF, or diagram work."
+    ]
+  },
+  "connectors": {
+    "mcp": [],
+    "composio": [],
+    "email": []
+  }
+}

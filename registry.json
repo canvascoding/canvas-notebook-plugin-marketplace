@@ -7,7 +7,7 @@
     "name": "Canvas Studios"
   },
   "homepage": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace",
-  "updatedAt": "2026-06-17T13:25:48.982Z",
+  "updatedAt": "2026-06-19T00:00:00.000Z",
   "plugins": [
     {
       "name": "canvas-basics",
@@ -48,8 +48,8 @@
       "publisher": {
         "name": "Canvas Studios"
       },
-      "latestVersion": "1.1.0",
-      "icon": "plugins/document-suite/1.1.0/assets/icon.svg",
+      "latestVersion": "1.2.0",
+      "icon": "plugins/document-suite/1.2.0/assets/icon.svg",
       "brandColor": "#2563EB",
       "connectors": {
         "mcp": [],
@@ -73,6 +73,16 @@
           "releasedAt": "2026-06-17T14:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Adds Marp Markdown slide authoring to the office document workflow bundle."
+        },
+        "1.2.0": {
+          "version": "1.2.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.2.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.2.0/plugins/document-suite/1.2.0",
+          "checksum": "sha256:1561e63d446962221a1f216cd461a36e0c76b8732a309eeb358a72fbec03657e",
+          "manifestPath": ".canvas-plugin/plugin.json",
+          "releasedAt": "2026-06-19T00:00:00.000Z",
+          "minCanvasVersion": "2026.6.19.1",
+          "notes": "Deduplicates central marketplace distribution and updates Marp Slides to Canvas-native 1.2.0 guidance."
         }
       }
     },
@@ -176,13 +186,13 @@
       "publisher": {
         "name": "Canvas Studios"
       },
-      "latestVersion": "1.1.0",
+      "latestVersion": "1.2.0",
       "brandColor": "#2563EB",
       "license": "MIT",
       "sourcePlugin": {
         "name": "document-suite",
         "displayName": "Document Suite",
-        "version": "1.1.0"
+        "version": "1.2.0"
       },
       "versions": {
         "1.1.0": {
@@ -193,6 +203,15 @@
           "releasedAt": "2026-06-17T14:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Standalone skill curated from Document Suite."
+        },
+        "1.2.0": {
+          "version": "1.2.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.2.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.2.0/plugins/document-suite/1.2.0/skills/docx",
+          "checksum": "sha256:423fddec3561a4a31cb5c1b5a12df12eb9f756fc289936b7e1167f2ebab34ee4",
+          "releasedAt": "2026-06-19T00:00:00.000Z",
+          "minCanvasVersion": "2026.6.19.1",
+          "notes": "Standalone skill curated from Document Suite 1.2.0."
         }
       }
     },
@@ -204,13 +223,13 @@
       "publisher": {
         "name": "Canvas Studios"
       },
-      "latestVersion": "1.1.0",
+      "latestVersion": "1.2.0",
       "brandColor": "#F59E0B",
       "license": "MIT",
       "sourcePlugin": {
         "name": "document-suite",
         "displayName": "Document Suite",
-        "version": "1.1.0"
+        "version": "1.2.0"
       },
       "versions": {
         "1.1.0": {
@@ -221,24 +240,33 @@
           "releasedAt": "2026-06-17T14:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Standalone skill curated from Document Suite."
+        },
+        "1.2.0": {
+          "version": "1.2.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.2.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.2.0/plugins/document-suite/1.2.0/skills/excalidraw-diagram",
+          "checksum": "sha256:05798055eeadddf6533bf8b3e1ce6aee0a9e6d50c56664b3515b1b537b9c9b89",
+          "releasedAt": "2026-06-19T00:00:00.000Z",
+          "minCanvasVersion": "2026.6.19.1",
+          "notes": "Standalone skill curated from Document Suite 1.2.0."
         }
       }
     },
     {
       "name": "marp-slides",
       "displayName": "Marp Slides",
-      "description": "Create, edit, review, and export polished Marp Markdown slide decks in Canvas Notebook. Use when the user wants Markdown-based presentations, `.marp.md` or `.slides.md` files, fast version-controlled decks, Marp PDF/image/PPTX export, speaker notes, presentation outlines, or better looking slides that should stay close to plain text.",
+      "description": "Create, edit, review, preview, and export polished Marp Markdown slide decks in Canvas Notebook. Use when the user wants Markdown-native presentations, `.marp.md` or `.slides.md` files, version-controlled decks, Marp PDF/image/PPTX/HTML export, speaker notes, dashboard-style slides, data cards, or better looking decks that should remain close to plain text.",
       "category": "Documents",
       "publisher": {
         "name": "Canvas Studios"
       },
-      "latestVersion": "1.1.0",
+      "latestVersion": "1.2.0",
       "brandColor": "#2563EB",
       "license": "MIT",
       "sourcePlugin": {
         "name": "document-suite",
         "displayName": "Document Suite",
-        "version": "1.1.0"
+        "version": "1.2.0"
       },
       "versions": {
         "1.1.0": {
@@ -249,6 +277,15 @@
           "releasedAt": "2026-06-17T14:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Standalone skill curated from Document Suite."
+        },
+        "1.2.0": {
+          "version": "1.2.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.2.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.2.0/plugins/document-suite/1.2.0/skills/marp-slides",
+          "checksum": "sha256:44fd0319dbb51dc54065a95b188069d0d3d0bc448cb0705b9fae261807e51066",
+          "releasedAt": "2026-06-19T00:00:00.000Z",
+          "minCanvasVersion": "2026.6.19.1",
+          "notes": "Standalone skill curated from Document Suite with Canvas-native Marp Slides 1.2.0 guidance."
         }
       }
     },
@@ -260,13 +297,13 @@
       "publisher": {
         "name": "Canvas Studios"
       },
-      "latestVersion": "1.1.0",
+      "latestVersion": "1.2.0",
       "brandColor": "#DC2626",
       "license": "MIT",
       "sourcePlugin": {
         "name": "document-suite",
         "displayName": "Document Suite",
-        "version": "1.1.0"
+        "version": "1.2.0"
       },
       "versions": {
         "1.1.0": {
@@ -277,6 +314,15 @@
           "releasedAt": "2026-06-17T14:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Standalone skill curated from Document Suite."
+        },
+        "1.2.0": {
+          "version": "1.2.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.2.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.2.0/plugins/document-suite/1.2.0/skills/pdf",
+          "checksum": "sha256:35d28493c9cab202b826ef963d3bf3f200dc44cb24abd050fb74b8d8a510c999",
+          "releasedAt": "2026-06-19T00:00:00.000Z",
+          "minCanvasVersion": "2026.6.19.1",
+          "notes": "Standalone skill curated from Document Suite 1.2.0."
         }
       }
     },
@@ -288,13 +334,13 @@
       "publisher": {
         "name": "Canvas Studios"
       },
-      "latestVersion": "1.1.0",
+      "latestVersion": "1.2.0",
       "brandColor": "#C43E1C",
       "license": "MIT",
       "sourcePlugin": {
         "name": "document-suite",
         "displayName": "Document Suite",
-        "version": "1.1.0"
+        "version": "1.2.0"
       },
       "versions": {
         "1.1.0": {
@@ -305,6 +351,15 @@
           "releasedAt": "2026-06-17T14:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Standalone skill curated from Document Suite."
+        },
+        "1.2.0": {
+          "version": "1.2.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.2.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.2.0/plugins/document-suite/1.2.0/skills/pptx",
+          "checksum": "sha256:1c4764cc273adda3818fde77b2064270ea3eff2b6babf789c7a42ddc98910f6e",
+          "releasedAt": "2026-06-19T00:00:00.000Z",
+          "minCanvasVersion": "2026.6.19.1",
+          "notes": "Standalone skill curated from Document Suite 1.2.0."
         }
       }
     },
@@ -344,13 +399,13 @@
       "publisher": {
         "name": "Canvas Studios"
       },
-      "latestVersion": "1.1.0",
+      "latestVersion": "1.2.0",
       "brandColor": "#107C41",
       "license": "MIT",
       "sourcePlugin": {
         "name": "document-suite",
         "displayName": "Document Suite",
-        "version": "1.1.0"
+        "version": "1.2.0"
       },
       "versions": {
         "1.1.0": {
@@ -361,6 +416,15 @@
           "releasedAt": "2026-06-17T14:00:00.000Z",
           "minCanvasVersion": "2026.6.11.1",
           "notes": "Standalone skill curated from Document Suite."
+        },
+        "1.2.0": {
+          "version": "1.2.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.2.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.2.0/plugins/document-suite/1.2.0/skills/xlsx",
+          "checksum": "sha256:dec5c7fa3ee71416493faf279ee1fefb5d5a0286db0a9d2b850e642ad369a321",
+          "releasedAt": "2026-06-19T00:00:00.000Z",
+          "minCanvasVersion": "2026.6.19.1",
+          "notes": "Standalone skill curated from Document Suite 1.2.0."
         }
       }
     }

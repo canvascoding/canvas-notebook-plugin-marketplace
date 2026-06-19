@@ -63,7 +63,7 @@ Every standalone skill package must include:
 | Plugin | Version | Purpose |
 | --- | --- | --- |
 | Canvas Basics | 1.0.0 | Smoke-test plugin for Canvas Plugin installation, discovery, icons, and bundled skills. |
-| Document Suite | 1.1.0 | PDF, PowerPoint, Excel, Word, Marp Markdown slides, and Excalidraw diagram workflows. |
+| Document Suite | 1.2.0 | PDF, PowerPoint, Excel, Word, Marp Markdown slides, and Excalidraw diagram workflows. |
 | Sales Connectors Demo | 1.0.0 | Demo plugin for Composio, Canvas Email, and MCP connector recommendations. |
 
 ## Included Standalone Skills
@@ -71,13 +71,13 @@ Every standalone skill package must include:
 | Skill | Version | Purpose |
 | --- | --- | --- |
 | Canvas Basics Check | 1.0.0 | Validate Canvas Plugin discovery, installation, references, and bundled skill loading. |
-| DOCX | 1.1.0 | Create, edit, review, and verify Word-compatible documents. |
-| Excalidraw Diagram | 1.1.0 | Create editable `.excalidraw` diagram files. |
-| Marp Slides | 1.1.0 | Markdown-native presentation decks with Canvas preview/export guidance. |
-| PDF | 1.1.0 | Read, create, extract, transform, and verify PDFs. |
-| PPTX | 1.1.0 | Create, edit, review, and verify PowerPoint decks. |
+| DOCX | 1.2.0 | Create, edit, review, and verify Word-compatible documents. |
+| Excalidraw Diagram | 1.2.0 | Create editable `.excalidraw` diagram files. |
+| Marp Slides | 1.2.0 | Canvas-native Marp decks with preview/export guidance. |
+| PDF | 1.2.0 | Read, create, extract, transform, and verify PDFs. |
+| PPTX | 1.2.0 | Create, edit, review, and verify PowerPoint decks. |
 | Sales Connector Readiness | 1.0.0 | Check recommended sales connector readiness. |
-| XLSX | 1.1.0 | Create, edit, analyze, and verify spreadsheet workbooks. |
+| XLSX | 1.2.0 | Create, edit, analyze, and verify spreadsheet workbooks. |
 
 ## Local Validation
 
