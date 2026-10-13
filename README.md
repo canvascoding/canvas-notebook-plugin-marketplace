@@ -82,3 +82,30 @@ Every standalone skill package must include:
 ## Local Validation
 
 Validation is implemented in Canvas Notebook. During development, install a plugin through the Canvas Notebook advanced local install flow or the plugin runtime test before publishing it here.
+
+### Prepared Document Suite 1.4.0
+
+`plugins/document-suite/1.4.0/` is a prepared immutable package, outside the active registry. Its Excalidraw workflow uses Canvas's three Scene-Service tools; the other bundled skills retain their 1.2.0 content. `prepared/document-suite-1.4.0.json` records package/skill checksums and Seed workflow/helper parity, with `minCanvasVersion: null` because a compatible backend release is not yet available. Published 1.1.0/1.2.0 packages and the active registry stay unchanged.
+
+Verify the preparation and exercise the offline release gates:
+
+```sh
+node scripts/document-suite-release.mjs verify
+node --test scripts/document-suite-release.test.mjs
+```
+
+For an actual Seed comparison, use the current Notebook checkout:
+
+```sh
+node scripts/document-suite-release.mjs verify --notebook-root /path/to/canvas-notebook
+# From the Notebook checkout:
+node --import tsx --conditions react-server scripts/excalidraw-skill-packaging-test.ts --marketplace-root /path/to/canvas-notebook-plugin-marketplace
+```
+
+After an explicitly authorized Canvas backend release exists, run `finalize --backend-release` with its actual `v` tag. The CLI uses read-only GitHub queries through `gh` to verify a published stable release, its exact tagged package version, the required implementation commit, and the Scene/Pi/MCP contracts. It rejects old releases, drafts, prereleases, missing contracts, moved tags, or changed package checksums.
+
+```text
+node scripts/document-suite-release.mjs finalize --backend-release <actual-backend-v-tag> --notebook-root /path/to/canvas-notebook
+```
+
+This creates only `dist/document-suite-1.4.0.registry.json` and a release proof. It fills `minCanvasVersion` from the verified backend release and does not change `registry.json`, create tags, push, or publish. Review the candidate and proof before the separate authorized Marketplace publication. No fake future version or release date is embedded in the prepared package.

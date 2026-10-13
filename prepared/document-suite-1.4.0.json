@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "status": "prepared",
+  "name": "document-suite",
+  "version": "1.4.0",
+  "basedOnVersion": "1.2.0",
+  "packagePath": "plugins/document-suite/1.4.0",
+  "checksum": "sha256:dc6e8518f916c36ee3386328c7891c0d02db1552350eb06e3b334f4dfa6d765f",
+  "skillChecksums": {
+    "docx": "sha256:423fddec3561a4a31cb5c1b5a12df12eb9f756fc289936b7e1167f2ebab34ee4",
+    "excalidraw-diagram": "sha256:c5c2843e278d796e61c4788cc7ce62565e937ac327ad158eaf7245e6505b3ba5",
+    "marp-slides": "sha256:44fd0319dbb51dc54065a95b188069d0d3d0bc448cb0705b9fae261807e51066",
+    "pdf": "sha256:35d28493c9cab202b826ef963d3bf3f200dc44cb24abd050fb74b8d8a510c999",
+    "pptx": "sha256:1c4764cc273adda3818fde77b2064270ea3eff2b6babf789c7a42ddc98910f6e",
+    "xlsx": "sha256:dec5c7fa3ee71416493faf279ee1fefb5d5a0286db0a9d2b850e642ad369a321"
+  },
+  "registryChecksum": "sha256:7f14abd88acabac4fa7495af9413a6285a4c7d1d03cb67603b4e87c5ff8268dc",
+  "requiredBackendCommit": "b36ccd9fd14d41be46f87152b35da88f95d8cb20",
+  "backendRepository": "canvascoding/canvas-notebook",
+  "publishedBaselineVersion": "2026.10.12.12",
+  "minCanvasVersion": null,
+  "seed": {
+    "pluginChecksum": "sha256:ce29fc44448d03c7ef16494d4b8c93247fc2856940e633ac2efdc8c8cdb12ae3",
+    "skillChecksum": "sha256:3e27bcccb45c6fd36512362f15871e63c1f4b858faeb650d0accaa6f27d28a8b",
+    "workflowChecksum": "sha256:bb15bcc4a81e954fcba1aacb870621a8c6b2cdd972a52e2803a95124cda5eb73",
+    "helperChecksums": {
+      "agents/canvas.yaml": "sha256:d73d8e25df56ea17f57548b01fba2d9830f089d411673a758316d0bbc8bb1b4f",
+      "scripts/validate_excalidraw.py": "sha256:4e53342661217adf83e47d6181e73f6ee39aee712fa5d02ed2c318a7b80e0e96"
+    }
+  },
+  "excalidrawDescription": "Create and edit editable Excalidraw diagrams in Canvas Notebook through the Scene-Service tools. Use for diagrams, flows, sketches, architecture maps, visual explanations, or requested .excalidraw documents.",
+  "registryEntries": {
+    "plugin": {
+      "version": "1.4.0",
+      "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.4.0.zip",
+      "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.4.0/plugins/document-suite/1.4.0",
+      "checksum": "sha256:dc6e8518f916c36ee3386328c7891c0d02db1552350eb06e3b334f4dfa6d765f",
+      "manifestPath": ".canvas-plugin/plugin.json",
+      "notes": "Excalidraw uses the central Scene-Service with versioned element actions, authoritative reads, durable idempotency and separate checkpoint status. Other document workflows remain unchanged."
+    },
+    "skill": {
+      "version": "1.4.0",
+      "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.4.0.zip",
+      "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.4.0/plugins/document-suite/1.4.0/skills/excalidraw-diagram",
+      "checksum": "sha256:c5c2843e278d796e61c4788cc7ce62565e937ac327ad158eaf7245e6505b3ba5",
+      "notes": "Create/Get/Edit Scene-Service workflow. Direct file writes and whole-scene replacement are prohibited. Human review is optional and experimental, disabled by default."
+    }
+  }
+}

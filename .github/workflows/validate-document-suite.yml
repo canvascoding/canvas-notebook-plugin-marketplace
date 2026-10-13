@@ -1,0 +1,21 @@
+name: Validate prepared Document Suite
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  prepared-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify immutable packages, workflow parity, and checksums
+        run: node scripts/document-suite-release.mjs verify
+      - name: Exercise offline positive and negative release gates
+        run: node --test scripts/document-suite-release.test.mjs

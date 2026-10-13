@@ -23,3 +23,5 @@ This repository is curated. Changes should be reviewed before merge because Canv
 
 Do not overwrite an existing version directory. Publish a new version instead.
 
+Document Suite 1.4.0 has an additional backend release gate. Follow the prepared-package verification and candidate generation in [README.md](README.md#prepared-document-suite-140). Keep it outside the active registry until the real backend release has passed that gate; never fill its minimum Canvas version with an older incompatible release.
+
