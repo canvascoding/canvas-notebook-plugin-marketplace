@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "published",
+  "name": "document-suite",
+  "version": "1.4.0",
+  "mode": "marketplace-before-backend",
+  "publishedAt": "2026-10-14T15:18:31.613Z",
+  "checksum": "sha256:f1e48ededc2346a541130f08a15a74f9b1ff9463dbda8d103263c1530af486d0",
+  "preparedRegistryChecksum": "sha256:8cf2c9e2bea7c05ba5017b9056b07d29972241a419e2fb3b5edf4ca3e6b3b398",
+  "registryChecksum": "sha256:f09476cf2869ff9368252bef30095c4814a9f4c9421e0b55f260b48441d24792",
+  "backendRelease": null,
+  "minCanvasVersion": null,
+  "requiredBackendCommit": "b36ccd9fd14d41be46f87152b35da88f95d8cb20",
+  "requiredTools": [
+    "create_excalidraw_scene",
+    "get_excalidraw_scene",
+    "edit_excalidraw_scene"
+  ]
+}

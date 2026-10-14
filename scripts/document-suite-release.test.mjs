@@ -7,7 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { promisify } from 'node:util';
-import { checksum, createRegistryCandidate, markdownBody, sha256, verifyPreparedPackage } from './document-suite-release.mjs';
+import { checksum, createAheadOfBackendRegistryCandidate, createRegistryCandidate, markdownBody, sha256, verifyPreparedPackage } from './document-suite-release.mjs';
 
 const SKILLS = ['docx', 'excalidraw-diagram', 'marp-slides', 'pdf', 'pptx', 'xlsx'];
 const COMMIT = 'a'.repeat(40);
@@ -273,3 +273,81 @@ for (const mode of ['unavailable', 'draft', 'prerelease', 'moved', 'unrelated', 
     await assert.rejects(fs.access(path.join(f.marketplaceRoot, 'dist')));
   });
 }
+
+async function publishedFixture(t) {
+  const f = await fixture(t);
+  const publishedAt = '2026-10-14T15:30:00.000Z';
+  const registry = createAheadOfBackendRegistryCandidate({ ...f, publishedAt });
+  await put(f.marketplaceRoot, 'registry.json', json(registry));
+  const publication = { schemaVersion: 1, status: 'published', name: 'document-suite', version: '1.4.0',
+    mode: 'marketplace-before-backend', publishedAt, checksum: f.receipt.checksum,
+    preparedRegistryChecksum: f.receipt.registryChecksum, registryChecksum: sha256(json(registry)),
+    backendRelease: null, minCanvasVersion: null, requiredBackendCommit: COMMIT,
+    requiredTools: ['create_excalidraw_scene', 'get_excalidraw_scene', 'edit_excalidraw_scene'] };
+  const writePublication = () => put(f.marketplaceRoot, 'releases/document-suite-1.4.0.json', json(publication));
+  await writePublication();
+  return { ...f, registry, publication, writePublication };
+}
+
+test('explicit Marketplace publication supports a later backend update without a guessed minimum', async (t) => {
+  const f = await publishedFixture(t);
+  const checked = await verifyPreparedPackage(f);
+  assert.equal(checked.publication.mode, 'marketplace-before-backend');
+  const plugin = f.registry.plugins.find(entry => entry.name === 'document-suite');
+  assert.equal(plugin.latestVersion, '1.4.0');
+  assert.deepEqual(plugin.skills, [...SKILLS, 'mermaid']);
+  const release = plugin.versions['1.4.0'];
+  assert.equal(Object.hasOwn(release, 'minCanvasVersion'), false);
+  for (const tool of f.publication.requiredTools) assert.ok(release.notes.includes(tool));
+});
+
+test('ahead-of-backend candidate preserves inputs and unrelated releases', async (t) => {
+  const f = await fixture(t);
+  const original = structuredClone(f.registry);
+  const candidate = createAheadOfBackendRegistryCandidate({ ...f, publishedAt: '2026-10-14T15:30:00.000Z' });
+  assert.deepEqual(f.registry, original);
+  assert.deepEqual(candidate.plugins[0], original.plugins[0]);
+  assert.deepEqual(candidate.plugins[1].versions['1.2.0'], original.plugins[1].versions['1.2.0']);
+  for (const name of [...SKILLS.filter(name => name !== 'excalidraw-diagram'), 'mermaid']) {
+    assert.deepEqual(candidate.skills.find(entry => entry.name === name), original.skills.find(entry => entry.name === name));
+  }
+  assert.throws(() => createAheadOfBackendRegistryCandidate({ ...f, registry: candidate, publishedAt: '2026-10-14T15:30:00.000Z' }), /already registered/);
+});
+
+for (const [name, mutate, pattern] of [
+  ['invented backend release', f => { f.publication.backendRelease = 'v2099.1.1.1'; }, /must not claim/],
+  ['invented backend minimum', f => { f.publication.minCanvasVersion = '2099.1.1.1'; }, /must not claim/],
+  ['missing required tool', f => { f.publication.requiredTools.pop(); }, /requirements/],
+  ['different package', f => { f.publication.checksum = `sha256:${'0'.repeat(64)}`; }, /provenance/],
+]) {
+  test(`publication rejects ${name}`, async (t) => {
+    const f = await publishedFixture(t);
+    mutate(f);
+    await f.writePublication();
+    await assert.rejects(verifyPreparedPackage(f), pattern);
+  });
+}
+
+test('published metadata cannot remove the backend notice even after refreshing registry hash', async (t) => {
+  const f = await publishedFixture(t);
+  f.registry.plugins[1].versions['1.4.0'].notes = 'Everything works on the old backend.';
+  await put(f.marketplaceRoot, 'registry.json', json(f.registry));
+  f.publication.registryChecksum = sha256(json(f.registry));
+  await f.writePublication();
+  await assert.rejects(verifyPreparedPackage(f), /backend notice mismatch/);
+});
+
+test('active 1.4 without its publication record is rejected', async (t) => {
+  const f = await publishedFixture(t);
+  await fs.unlink(path.join(f.marketplaceRoot, 'releases/document-suite-1.4.0.json'));
+  await assert.rejects(verifyPreparedPackage(f), /Active registry changed/);
+});
+
+test('published registry cannot assert a guessed minimum even with a refreshed registry checksum', async (t) => {
+  const f = await publishedFixture(t);
+  f.registry.plugins[1].versions['1.4.0'].minCanvasVersion = '2026.10.12.12';
+  await put(f.marketplaceRoot, 'registry.json', json(f.registry));
+  f.publication.registryChecksum = sha256(json(f.registry));
+  await f.writePublication();
+  await assert.rejects(verifyPreparedPackage(f), /metadata or backend notice mismatch/);
+});
