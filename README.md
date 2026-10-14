@@ -74,6 +74,7 @@ Every standalone skill package must include:
 | DOCX | 1.2.0 | Create, edit, review, and verify Word-compatible documents. |
 | Excalidraw Diagram | 1.2.0 | Create editable `.excalidraw` diagram files. |
 | Marp Slides | 1.2.0 | Canvas-native Marp decks with preview/export guidance. |
+| Mermaid | 1.0.0 | On-demand Mermaid authoring, syntax examples, and focused error correction in Canvas Markdown. |
 | PDF | 1.2.0 | Read, create, extract, transform, and verify PDFs. |
 | PPTX | 1.2.0 | Create, edit, review, and verify PowerPoint decks. |
 | Sales Connector Readiness | 1.0.0 | Check recommended sales connector readiness. |
@@ -85,7 +86,23 @@ Validation is implemented in Canvas Notebook. During development, install a plug
 
 ### Prepared Document Suite 1.4.0
 
-`plugins/document-suite/1.4.0/` is a prepared immutable package, outside the active registry. Its Excalidraw workflow uses Canvas's three Scene-Service tools; the other bundled skills retain their 1.2.0 content. `prepared/document-suite-1.4.0.json` records package/skill checksums and Seed workflow/helper parity, with `minCanvasVersion: null` because a compatible backend release is not yet available. Published 1.1.0/1.2.0 packages and the active registry stay unchanged.
+`plugins/document-suite/1.4.0/` is a prepared, unpublished package outside the active plugin registry. Its Excalidraw workflow uses Canvas's three Scene-Service tools. It also bundles the exact standalone Mermaid 1.0.0 package; the other bundled skills retain their 1.2.0 content. `prepared/document-suite-1.4.0.json` records package/skill checksums and Excalidraw Seed workflow/helper parity, with `minCanvasVersion: null` because a compatible backend release is not yet available. Published 1.1.0/1.2.0 packages remain immutable. Mermaid is independently available in the standalone Skill Library; publishing that skill does not activate Document Suite 1.4.0 or change installed Notebook defaults.
+
+### Mermaid 1.0.0
+
+`skills/mermaid/1.0.0/` is the standalone source, published through the immutable `mermaid-v1.0.0` archive tag. The skill is compatible with Canvas backend `v2026.10.12.12` and its Mermaid `11.16.1`. It explains diagram selection, Markdown fences, six diagram types, version limitations, and focused repair. `references/` supplies detail only when needed; the skill entrypoint and description support the existing on-demand skill loader. Automatic central Mermaid validation is a separate backend feature and is not promised by this instruction package.
+
+For standard availability in a future Notebook release, add `mermaid` to its seed Document Suite skill references and distribute the same skill content. The fixed Markdown prompt should briefly recommend considering Mermaid for suitable visualizations and reading the available skill for explicit Mermaid operations. Specialized-agent selection and organization policies still apply. This Marketplace-only change does not modify Notebook prompts, seeds, user installations, or policies.
+
+Parse the original examples without starting a browser, using a validation project with `mermaid@11.16.1`, `jsdom@26.1.0` and `mdast-util-from-markdown@2.0.3` installed:
+
+```sh
+MERMAID_VALIDATION_PROJECT=/absolute/path/to/validation-project node --test scripts/mermaid-skill.test.mjs
+```
+
+CI installs these dependencies in its temporary directory. Syntax tests are distinct from UI, layout and PDF acceptance. The prepared package verifier also rejects drift between the standalone Mermaid publication and its bundled copy.
+
+### Document Suite release gate
 
 Verify the preparation and exercise the offline release gates:
 

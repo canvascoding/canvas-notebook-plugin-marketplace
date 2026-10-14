@@ -7,7 +7,7 @@
     "name": "Canvas Studios"
   },
   "homepage": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace",
-  "updatedAt": "2026-06-19T00:00:00.000Z",
+  "updatedAt": "2026-10-14T15:02:14.564Z",
   "plugins": [
     {
       "name": "canvas-basics",
@@ -425,6 +425,27 @@
           "releasedAt": "2026-06-19T00:00:00.000Z",
           "minCanvasVersion": "2026.6.19.1",
           "notes": "Standalone skill curated from Document Suite 1.2.0."
+        }
+      }
+    },
+    {
+      "name": "mermaid",
+      "displayName": "Mermaid",
+      "description": "Create, edit, explain, or repair Mermaid code in Canvas Markdown documents and chat. Use for explicit Mermaid requests and embedded flowcharts, sequence diagrams, entity relationships, timelines, or simple bar/line charts. For a requested editable Excalidraw canvas, use the available Excalidraw workflow instead.",
+      "category": "Documents",
+      "publisher": {
+        "name": "Canvas Studios"
+      },
+      "latestVersion": "1.0.0",
+      "license": "MIT",
+      "versions": {
+        "1.0.0": {
+          "version": "1.0.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/mermaid-v1.0.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-mermaid-v1.0.0/skills/mermaid/1.0.0",
+          "checksum": "sha256:5ebad107d7e610eb3d5ed0699984e3381c96623469954c7675e5189fa7bee3f8",
+          "minCanvasVersion": "2026.10.12.12",
+          "notes": "Mermaid authoring and repair with syntax examples checked against Mermaid 11.16.1. No automatic backend validation is installed by this skill."
         }
       }
     }

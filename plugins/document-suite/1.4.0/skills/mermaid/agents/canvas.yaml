@@ -1,0 +1,4 @@
+interface:
+  display_name: Mermaid
+  short_description: Write and repair Mermaid diagrams in Canvas Markdown
+  default_prompt: Use $mermaid to create, explain, or repair Mermaid code in a Canvas Markdown document.

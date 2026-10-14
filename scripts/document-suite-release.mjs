@@ -9,7 +9,8 @@ const run = promisify(execFile);
 const VERSION = '1.4.0';
 const REPOSITORY = 'canvascoding/canvas-notebook';
 const BASELINE = '2026.10.12.12';
-const SKILLS = ['docx', 'excalidraw-diagram', 'marp-slides', 'pdf', 'pptx', 'xlsx'];
+const BASE_SKILLS = ['docx', 'excalidraw-diagram', 'marp-slides', 'pdf', 'pptx', 'xlsx'];
+const SKILLS = [...BASE_SKILLS, 'mermaid'];
 const TOOLS = ['create_excalidraw_scene', 'get_excalidraw_scene', 'edit_excalidraw_scene'];
 const IGNORED = new Set(['.git', 'node_modules', '.DS_Store']);
 const SOURCES = {
@@ -77,7 +78,7 @@ export async function verifyPreparedPackage({ marketplaceRoot, notebookRoot }) {
   requireCondition(plugin?.latestVersion === '1.2.0' && !plugin.versions[VERSION], 'Prepared package must not be active');
   for (const version of ['1.1.0', '1.2.0']) {
     requireCondition(await checksum(path.join(marketplaceRoot, `plugins/document-suite/${version}`)) === plugin.versions[version]?.checksum, `Immutable document-suite ${version} changed`);
-    for (const skill of SKILLS) {
+    for (const skill of BASE_SKILLS) {
       const entry = registry.skills.find((item) => item.name === skill);
       requireCondition(await checksum(path.join(marketplaceRoot, `plugins/document-suite/${version}/skills/${skill}`)) === entry?.versions[version]?.checksum, `Immutable ${skill} ${version} changed`);
     }
@@ -86,15 +87,22 @@ export async function verifyPreparedPackage({ marketplaceRoot, notebookRoot }) {
   requireCondition(await checksum(packageRoot) === receipt.checksum, 'Prepared package checksum mismatch');
   const manifest = await readJson(path.join(packageRoot, '.canvas-plugin/plugin.json'));
   requireCondition(manifest.name === 'document-suite' && manifest.version === VERSION && manifest.license === 'MIT', 'Invalid Marketplace manifest identity or license');
+  requireCondition(typeof receipt.pluginDescription === 'string' && receipt.pluginDescription === manifest.description, 'Prepared plugin description mismatch');
   requireCondition(equal((await fs.readdir(path.join(packageRoot, 'skills'))).sort(), [...SKILLS].sort()), 'Unexpected bundled skill set');
   requireCondition(equal(Object.keys(receipt.skillChecksums).sort(), [...SKILLS].sort()), 'Missing skill checksums');
   for (const skill of SKILLS) {
     const skillRoot = path.join(packageRoot, 'skills', skill);
     requireCondition(await checksum(skillRoot) === receipt.skillChecksums[skill], `${skill} checksum mismatch`);
-    if (skill !== 'excalidraw-diagram') {
+    if (BASE_SKILLS.includes(skill) && skill !== 'excalidraw-diagram') {
       requireCondition(await checksum(skillRoot) === await checksum(path.join(marketplaceRoot, 'plugins/document-suite/1.2.0/skills', skill)), `${skill} content must remain unchanged from 1.2.0`);
     }
   }
+  const mermaidRoot = path.join(marketplaceRoot, 'skills/mermaid/1.0.0');
+  const mermaidEntry = registry.skills.find((entry) => entry.name === 'mermaid');
+  const mermaidChecksum = await checksum(mermaidRoot);
+  requireCondition(mermaidEntry?.latestVersion === '1.0.0' && mermaidEntry.versions?.['1.0.0']?.checksum === mermaidChecksum,
+    'Standalone Mermaid registry checksum mismatch');
+  requireCondition(receipt.skillChecksums.mermaid === mermaidChecksum, 'Bundled Mermaid differs from its published standalone skill');
   const excalidrawRoot = path.join(packageRoot, 'skills/excalidraw-diagram');
   const skillText = await fs.readFile(path.join(excalidrawRoot, 'SKILL.md'), 'utf8');
   const frontmatter = skillText.slice(0, skillText.length - markdownBody(skillText).length);
@@ -167,6 +175,8 @@ export function createRegistryCandidate({ registry, receipt, releaseProof, gener
   const skill = candidate.skills.find((entry) => entry.name === 'excalidraw-diagram');
   requireCondition(plugin && skill && !plugin.versions[VERSION] && !skill.versions[VERSION], 'Package already registered or registry entries missing');
   plugin.latestVersion = VERSION;
+  plugin.skills = [...SKILLS];
+  plugin.description = receipt.pluginDescription;
   plugin.icon = `plugins/document-suite/${VERSION}/assets/icon.svg`;
   plugin.versions[VERSION] = { ...receipt.registryEntries.plugin, minCanvasVersion: proof.packageVersion };
   skill.latestVersion = VERSION;

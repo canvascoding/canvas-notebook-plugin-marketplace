@@ -19,3 +19,7 @@ jobs:
         run: node scripts/document-suite-release.mjs verify
       - name: Exercise offline positive and negative release gates
         run: node --test scripts/document-suite-release.test.mjs
+      - name: Install isolated Mermaid syntax validation dependencies
+        run: npm install --prefix "$RUNNER_TEMP/mermaid-validation" --ignore-scripts --no-audit --no-fund mermaid@11.16.1 jsdom@26.1.0 mdast-util-from-markdown@2.0.3
+      - name: Parse published skill examples with the documented Mermaid version
+        run: MERMAID_VALIDATION_PROJECT="$RUNNER_TEMP/mermaid-validation" node --test scripts/mermaid-skill.test.mjs
