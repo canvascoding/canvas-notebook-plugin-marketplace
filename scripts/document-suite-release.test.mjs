@@ -45,7 +45,14 @@ async function fixture(t) {
   const packagePath = 'plugins/document-suite/1.4.0';
   const packageRoot = path.join(marketplaceRoot, packagePath);
   await fs.cp(path.join(marketplaceRoot, 'plugins/document-suite/1.2.0'), packageRoot, { recursive: true });
-  await put(marketplaceRoot, `${packagePath}/.canvas-plugin/plugin.json`, json({ name: 'document-suite', version: '1.4.0', license: 'MIT' }));
+  const pluginDescription = 'Document workflows including Excalidraw and Mermaid.';
+  await put(marketplaceRoot, `${packagePath}/.canvas-plugin/plugin.json`, json({ name: 'document-suite', version: '1.4.0', license: 'MIT', description: pluginDescription }));
+  const mermaidText = '---\nname: mermaid\nlicense: MIT\nmetadata:\n  version: "1.0.0"\n---\nWrite Mermaid code in Markdown.\n';
+  await put(marketplaceRoot, 'skills/mermaid/1.0.0/SKILL.md', mermaidText);
+  await put(marketplaceRoot, `${packagePath}/skills/mermaid/SKILL.md`, mermaidText);
+  registry.skills.push({ name: 'mermaid', latestVersion: '1.0.0', versions: {
+    '1.0.0': { checksum: await checksum(path.join(marketplaceRoot, 'skills/mermaid/1.0.0')) },
+  } });
   const body = '\nCreate/Get → valid elements → Edit → actual status → reread → document link.\n';
   const marketSkill = `---\nname: excalidraw-diagram\ndescription: ${DESCRIPTION}\nlicense: "MIT"\nmetadata:\n  version: "1.4.0"\n---\n${body}`;
   const seedSkill = `---\nname: excalidraw-diagram\ndescription: ${DESCRIPTION}\nlicense: "Canvas Notebook Sustainable Use License"\n---\n${body}`;
@@ -61,7 +68,7 @@ async function fixture(t) {
   const registryBytes = json(registry);
   await put(marketplaceRoot, 'registry.json', registryBytes);
   const skillChecksums = {};
-  for (const skill of SKILLS) skillChecksums[skill] = await checksum(path.join(packageRoot, 'skills', skill));
+  for (const skill of [...SKILLS, 'mermaid']) skillChecksums[skill] = await checksum(path.join(packageRoot, 'skills', skill));
   const archiveBase = 'canvas-notebook-plugin-marketplace-document-suite-v1.4.0';
   const baseEntry = { version: '1.4.0', downloadUrl: 'https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.4.0.zip' };
   const receipt = { schemaVersion: 1, status: 'prepared', name: 'document-suite', version: '1.4.0', basedOnVersion: '1.2.0', packagePath,
@@ -70,7 +77,7 @@ async function fixture(t) {
     seed: { pluginChecksum: await checksum(path.join(notebookRoot, 'seed_plugins/document-suite')),
       skillChecksum: await checksum(path.join(notebookRoot, 'seed_skills/excalidraw-diagram')), workflowChecksum: sha256(body),
       helperChecksums: Object.fromEntries(Object.entries(helpers).map(([name, bytes]) => [name, sha256(bytes)])) },
-    excalidrawDescription: DESCRIPTION,
+    excalidrawDescription: DESCRIPTION, pluginDescription,
     registryEntries: { plugin: { ...baseEntry, packagePath: `${archiveBase}/${packagePath}`, checksum: await checksum(packageRoot), manifestPath: '.canvas-plugin/plugin.json' },
       skill: { ...baseEntry, packagePath: `${archiveBase}/${excalPath}`, checksum: skillChecksums['excalidraw-diagram'] } },
   };
@@ -112,6 +119,9 @@ test('stable released backend creates only expected registry entries without mut
   const candidate = createRegistryCandidate({ ...f, releaseProof: proof(), generatedAt: '2026-10-13T14:00:00.000Z' });
   assert.deepEqual(f.registry, original);
   assert.equal(candidate.plugins[1].latestVersion, '1.4.0');
+  assert.deepEqual(candidate.plugins[1].skills, [...SKILLS, 'mermaid']);
+  assert.equal(candidate.plugins[1].description, f.receipt.pluginDescription);
+  assert.deepEqual(candidate.skills.find((item) => item.name === 'mermaid'), original.skills.find((item) => item.name === 'mermaid'));
   assert.equal(candidate.plugins[1].versions['1.4.0'].minCanvasVersion, '2026.10.13.1');
   assert.equal(candidate.skills.find((item) => item.name === 'excalidraw-diagram').versions['1.4.0'].minCanvasVersion, '2026.10.13.1');
   assert.deepEqual(candidate.plugins[0], original.plugins[0]);
@@ -174,6 +184,23 @@ test('offline parity rejects a changed workflow even when the package hash was r
   f.receipt.skillChecksums['excalidraw-diagram'] = await checksum(path.join(f.marketplaceRoot, f.receipt.packagePath, 'skills/excalidraw-diagram'));
   await f.writeReceipt();
   await assert.rejects(verifyPreparedPackage({ marketplaceRoot: f.marketplaceRoot }), /Seed\/Marketplace workflow differs/);
+});
+
+test('bundled Mermaid must match the published standalone skill even after receipt refresh', async (t) => {
+  const f = await fixture(t);
+  const bundled = path.join(f.marketplaceRoot, f.receipt.packagePath, 'skills/mermaid');
+  await fs.appendFile(path.join(bundled, 'SKILL.md'), '\nUnexpected different workflow.\n');
+  f.receipt.skillChecksums.mermaid = await checksum(bundled);
+  f.receipt.checksum = await checksum(path.join(f.marketplaceRoot, f.receipt.packagePath));
+  f.receipt.registryEntries.plugin.checksum = f.receipt.checksum;
+  await f.writeReceipt();
+  await assert.rejects(verifyPreparedPackage(f), /Bundled Mermaid differs/);
+});
+
+test('standalone Mermaid must retain its registered checksum', async (t) => {
+  const f = await fixture(t);
+  await fs.appendFile(path.join(f.marketplaceRoot, 'skills/mermaid/1.0.0/SKILL.md'), '\nChanged publication.\n');
+  await assert.rejects(verifyPreparedPackage(f), /Standalone Mermaid registry checksum/);
 });
 
 test('CLI refuses a caller-supplied release proof or unknown options before any GitHub call', async () => {
