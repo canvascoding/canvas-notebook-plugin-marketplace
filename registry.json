@@ -7,7 +7,7 @@
     "name": "Canvas Studios"
   },
   "homepage": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace",
-  "updatedAt": "2026-10-14T15:02:14.564Z",
+  "updatedAt": "2026-10-14T15:18:31.613Z",
   "plugins": [
     {
       "name": "canvas-basics",
@@ -43,13 +43,13 @@
     {
       "name": "document-suite",
       "displayName": "Document Suite",
-      "description": "Bundled Canvas document workflows for PDF, PowerPoint, Excel, Word, Marp Markdown slides, and Excalidraw diagrams.",
+      "description": "Bundled Canvas document workflows for PDF, PowerPoint, Excel, Word, Marp Markdown slides, Excalidraw, and Mermaid diagrams. Excalidraw requires the updated Canvas Scene-Service backend.",
       "category": "Documents",
       "publisher": {
         "name": "Canvas Studios"
       },
-      "latestVersion": "1.2.0",
-      "icon": "plugins/document-suite/1.2.0/assets/icon.svg",
+      "latestVersion": "1.4.0",
+      "icon": "plugins/document-suite/1.4.0/assets/icon.svg",
       "brandColor": "#2563EB",
       "connectors": {
         "mcp": [],
@@ -61,7 +61,8 @@
         "marp-slides",
         "pdf",
         "pptx",
-        "xlsx"
+        "xlsx",
+        "mermaid"
       ],
       "versions": {
         "1.1.0": {
@@ -83,6 +84,15 @@
           "releasedAt": "2026-06-19T00:00:00.000Z",
           "minCanvasVersion": "2026.6.19.1",
           "notes": "Deduplicates central marketplace distribution and updates Marp Slides to Canvas-native 1.2.0 guidance."
+        },
+        "1.4.0": {
+          "version": "1.4.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.4.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.4.0/plugins/document-suite/1.4.0",
+          "checksum": "sha256:f1e48ededc2346a541130f08a15a74f9b1ff9463dbda8d103263c1530af486d0",
+          "manifestPath": ".canvas-plugin/plugin.json",
+          "notes": "Excalidraw uses the central Scene-Service. Adds Mermaid authoring and repair instructions identical to standalone Mermaid 1.0.0; other document workflows remain unchanged. Published before the backend update. Excalidraw requires a Canvas backend providing create_excalidraw_scene, get_excalidraw_scene, edit_excalidraw_scene. Upgrade the backend before using Excalidraw; other bundled skills do not require these tools. No released backend minimum version is asserted.",
+          "releasedAt": "2026-10-14T15:18:31.613Z"
         }
       }
     },
@@ -218,18 +228,18 @@
     {
       "name": "excalidraw-diagram",
       "displayName": "Excalidraw Diagram",
-      "description": "Create or edit Canvas Notebook .excalidraw files for diagrams, flows, sketches, architecture maps, and visual explanations. Use when the user asks for an Excalidraw drawing, diagram, board, sketch, canvas, flowchart, architecture diagram, or when a file ending in .excalidraw should be generated. Output only the .excalidraw file unless the user explicitly asks for another artifact.",
+      "description": "Create and edit editable Excalidraw diagrams in Canvas Notebook through the Scene-Service tools. Use for diagrams, flows, sketches, architecture maps, visual explanations, or requested .excalidraw documents. Requires the updated Canvas Scene-Service backend.",
       "category": "Documents",
       "publisher": {
         "name": "Canvas Studios"
       },
-      "latestVersion": "1.2.0",
+      "latestVersion": "1.4.0",
       "brandColor": "#F59E0B",
       "license": "MIT",
       "sourcePlugin": {
         "name": "document-suite",
         "displayName": "Document Suite",
-        "version": "1.2.0"
+        "version": "1.4.0"
       },
       "versions": {
         "1.1.0": {
@@ -249,6 +259,14 @@
           "releasedAt": "2026-06-19T00:00:00.000Z",
           "minCanvasVersion": "2026.6.19.1",
           "notes": "Standalone skill curated from Document Suite 1.2.0."
+        },
+        "1.4.0": {
+          "version": "1.4.0",
+          "downloadUrl": "https://github.com/canvascoding/canvas-notebook-plugin-marketplace/archive/refs/tags/document-suite-v1.4.0.zip",
+          "packagePath": "canvas-notebook-plugin-marketplace-document-suite-v1.4.0/plugins/document-suite/1.4.0/skills/excalidraw-diagram",
+          "checksum": "sha256:c5c2843e278d796e61c4788cc7ce62565e937ac327ad158eaf7245e6505b3ba5",
+          "notes": "Create/Get/Edit Scene-Service workflow. Direct file writes and whole-scene replacement are prohibited. Human review is optional and experimental, disabled by default. Published before the backend update. Excalidraw requires a Canvas backend providing create_excalidraw_scene, get_excalidraw_scene, edit_excalidraw_scene. Upgrade the backend before using Excalidraw; other bundled skills do not require these tools. No released backend minimum version is asserted.",
+          "releasedAt": "2026-10-14T15:18:31.613Z"
         }
       }
     },

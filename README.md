@@ -63,7 +63,7 @@ Every standalone skill package must include:
 | Plugin | Version | Purpose |
 | --- | --- | --- |
 | Canvas Basics | 1.0.0 | Smoke-test plugin for Canvas Plugin installation, discovery, icons, and bundled skills. |
-| Document Suite | 1.2.0 | PDF, PowerPoint, Excel, Word, Marp Markdown slides, and Excalidraw diagram workflows. |
+| Document Suite | 1.4.0 | PDF, PowerPoint, Excel, Word, Marp slides, Mermaid, and Excalidraw. Excalidraw requires the updated Scene-Service backend. |
 | Sales Connectors Demo | 1.0.0 | Demo plugin for Composio, Canvas Email, and MCP connector recommendations. |
 
 ## Included Standalone Skills
@@ -72,7 +72,7 @@ Every standalone skill package must include:
 | --- | --- | --- |
 | Canvas Basics Check | 1.0.0 | Validate Canvas Plugin discovery, installation, references, and bundled skill loading. |
 | DOCX | 1.2.0 | Create, edit, review, and verify Word-compatible documents. |
-| Excalidraw Diagram | 1.2.0 | Create editable `.excalidraw` diagram files. |
+| Excalidraw Diagram | 1.4.0 | Create editable diagrams through the updated Canvas Scene-Service tools. |
 | Marp Slides | 1.2.0 | Canvas-native Marp decks with preview/export guidance. |
 | Mermaid | 1.0.0 | On-demand Mermaid authoring, syntax examples, and focused error correction in Canvas Markdown. |
 | PDF | 1.2.0 | Read, create, extract, transform, and verify PDFs. |
@@ -84,9 +84,15 @@ Every standalone skill package must include:
 
 Validation is implemented in Canvas Notebook. During development, install a plugin through the Canvas Notebook advanced local install flow or the plugin runtime test before publishing it here.
 
-### Prepared Document Suite 1.4.0
+### Published Document Suite 1.4.0
 
-`plugins/document-suite/1.4.0/` is a prepared, unpublished package outside the active plugin registry. Its Excalidraw workflow uses Canvas's three Scene-Service tools. It also bundles the exact standalone Mermaid 1.0.0 package; the other bundled skills retain their 1.2.0 content. `prepared/document-suite-1.4.0.json` records package/skill checksums and Excalidraw Seed workflow/helper parity, with `minCanvasVersion: null` because a compatible backend release is not yet available. Published 1.1.0/1.2.0 packages remain immutable. Mermaid is independently available in the standalone Skill Library; publishing that skill does not activate Document Suite 1.4.0 or change installed Notebook defaults.
+`plugins/document-suite/1.4.0/` is the active Marketplace package, distributed through `document-suite-v1.4.0`. It includes the exact standalone Mermaid 1.0.0 package and the Excalidraw Scene-Service workflow. The other bundled skills retain their existing 1.2.0 content and independent skill versions; publishing the plugin does not require pretending those unchanged skills have new versions. Published 1.1.0/1.2.0 packages and the existing Mermaid 1.0.0 publication remain unchanged.
+
+**Backend update required for Excalidraw:** version 1.4.0 is explicitly published ahead of the backend update. The Excalidraw workflow needs `create_excalidraw_scene`, `get_excalidraw_scene`, and `edit_excalidraw_scene` and PostgreSQL. Update the backend before using it. If those tools are absent, the skill reports the missing capability; it must not substitute raw file writes. Mermaid and the other document skills do not depend on these Scene-Service tools.
+
+[`releases/document-suite-1.4.0.json`](releases/document-suite-1.4.0.json) records this publication mode, exact package/registry checksums and backend requirements. Its backend release and minimum version remain `null`: the registry does not invent a future release number or claim compatibility with the older backend. Instead the requirement is visible in the plugin and Excalidraw skill descriptions and version notes. Installation is available before the backend update; successful installation does not prove the new Excalidraw tools are present.
+
+The original `prepared/document-suite-1.4.0.json` remains as package provenance and Excalidraw Seed workflow/helper evidence. Its older registry checksum describes preparation, not the current published registry. The verifier accepts the published registry only with a matching publication record and the explicit backend notice. This release does not change Notebook source, prompts, seeds, installed user packages, or organization policy.
 
 ### Mermaid 1.0.0
 
@@ -102,9 +108,9 @@ MERMAID_VALIDATION_PROJECT=/absolute/path/to/validation-project node --test scri
 
 CI installs these dependencies in its temporary directory. Syntax tests are distinct from UI, layout and PDF acceptance. The prepared package verifier also rejects drift between the standalone Mermaid publication and its bundled copy.
 
-### Document Suite release gate
+### Document Suite verification
 
-Verify the preparation and exercise the offline release gates:
+Verify the published packages, compatibility notice, and offline release gates:
 
 ```sh
 node scripts/document-suite-release.mjs verify
@@ -115,14 +121,10 @@ For an actual Seed comparison, use the current Notebook checkout:
 
 ```sh
 node scripts/document-suite-release.mjs verify --notebook-root /path/to/canvas-notebook
-# From the Notebook checkout:
-node --import tsx --conditions react-server scripts/excalidraw-skill-packaging-test.ts --marketplace-root /path/to/canvas-notebook-plugin-marketplace
 ```
 
-After an explicitly authorized Canvas backend release exists, run `finalize --backend-release` with its actual `v` tag. The CLI uses read-only GitHub queries through `gh` to verify a published stable release, its exact tagged package version, the required implementation commit, and the Scene/Pi/MCP contracts. It rejects old releases, drafts, prereleases, missing contracts, moved tags, or changed package checksums.
+This optional Notebook comparison covers the original Excalidraw seed workflow and helpers. The Marketplace now additionally contains Mermaid; adopting it into Notebook defaults is a separate source change.
 
-```text
-node scripts/document-suite-release.mjs finalize --backend-release <actual-backend-v-tag> --notebook-root /path/to/canvas-notebook
-```
+The earlier `finalize --backend-release` path remains tested for strict backend-verified preparation, including source contracts and tag stability. It refuses to replace the already published 1.4.0 metadata. The explicitly authorized Marketplace-before-backend publication is recorded separately and does not fabricate a passing backend-release proof.
 
-This creates only `dist/document-suite-1.4.0.registry.json` and a release proof. It fills `minCanvasVersion` from the verified backend release and does not change `registry.json`, create tags, push, or publish. Review the candidate and proof before the separate authorized Marketplace publication. No fake future version or release date is embedded in the prepared package.
+Treat the released package and tag as immutable. Any future package content change needs a new plugin version; do not move the tag or silently rewrite 1.4.0 after the backend is updated.

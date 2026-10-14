@@ -12,6 +12,7 @@ const BASELINE = '2026.10.12.12';
 const BASE_SKILLS = ['docx', 'excalidraw-diagram', 'marp-slides', 'pdf', 'pptx', 'xlsx'];
 const SKILLS = [...BASE_SKILLS, 'mermaid'];
 const TOOLS = ['create_excalidraw_scene', 'get_excalidraw_scene', 'edit_excalidraw_scene'];
+const BACKEND_REQUIREMENT_NOTE = `Published before the backend update. Excalidraw requires a Canvas backend providing ${TOOLS.join(', ')}. Upgrade the backend before using Excalidraw; other bundled skills do not require these tools. No released backend minimum version is asserted.`;
 const IGNORED = new Set(['.git', 'node_modules', '.DS_Store']);
 const SOURCES = {
   scene: 'app/lib/excalidraw-collaboration/scene-service.ts',
@@ -72,10 +73,16 @@ export async function verifyPreparedPackage({ marketplaceRoot, notebookRoot }) {
   requireCondition(receipt.backendRepository === REPOSITORY && receipt.publishedBaselineVersion === BASELINE, 'Unexpected backend release policy');
   requireCondition(/^[a-f0-9]{40}$/.test(receipt.requiredBackendCommit), 'Missing exact required backend commit');
   const registryBytes = await fs.readFile(path.join(marketplaceRoot, 'registry.json'));
-  requireCondition(sha256(registryBytes) === receipt.registryChecksum, 'Active registry changed after preparation');
   const registry = JSON.parse(registryBytes.toString('utf8'));
   const plugin = registry.plugins.find((entry) => entry.name === 'document-suite');
-  requireCondition(plugin?.latestVersion === '1.2.0' && !plugin.versions[VERSION], 'Prepared package must not be active');
+  let publication = null;
+  try { publication = await readJson(path.join(marketplaceRoot, 'releases/document-suite-1.4.0.json')); }
+  catch (error) { if (error.code !== 'ENOENT') throw error; }
+  if (publication) verifyAheadOfBackendPublication({ publication, registry, registryBytes, receipt });
+  else {
+    requireCondition(sha256(registryBytes) === receipt.registryChecksum, 'Active registry changed after preparation');
+    requireCondition(plugin?.latestVersion === '1.2.0' && !plugin.versions[VERSION], 'Prepared package must not be active');
+  }
   for (const version of ['1.1.0', '1.2.0']) {
     requireCondition(await checksum(path.join(marketplaceRoot, `plugins/document-suite/${version}`)) === plugin.versions[version]?.checksum, `Immutable document-suite ${version} changed`);
     for (const skill of BASE_SKILLS) {
@@ -137,7 +144,57 @@ export async function verifyPreparedPackage({ marketplaceRoot, notebookRoot }) {
       requireCondition((await fs.readFile(path.join(seedSkill, helper))).equals(await fs.readFile(path.join(excalidrawRoot, helper))), `Actual Seed helper differs: ${helper}`);
     }
   }
-  return { receipt, registry };
+  return { receipt, registry, publication };
+}
+
+/** Explicit Marketplace publication can precede deployment without inventing a backend release. */
+export function createAheadOfBackendRegistryCandidate({ registry, receipt, publishedAt }) {
+  requireCondition(Number.isFinite(Date.parse(publishedAt)), 'Invalid publication timestamp');
+  requireCondition(receipt.version === VERSION && receipt.minCanvasVersion === null
+    && /^[a-f0-9]{40}$/.test(receipt.requiredBackendCommit), 'Expected prepared package with known backend requirements');
+  const candidate = structuredClone(registry);
+  const plugin = candidate.plugins.find(entry => entry.name === 'document-suite');
+  const skill = candidate.skills.find(entry => entry.name === 'excalidraw-diagram');
+  requireCondition(plugin && skill && plugin.latestVersion === '1.2.0'
+    && !plugin.versions[VERSION] && !skill.versions[VERSION], 'Package already registered or registry entries missing');
+  candidate.updatedAt = publishedAt;
+  plugin.latestVersion = VERSION;
+  plugin.skills = [...SKILLS];
+  plugin.description = `${receipt.pluginDescription} Excalidraw requires the updated Canvas Scene-Service backend.`;
+  plugin.icon = `plugins/document-suite/${VERSION}/assets/icon.svg`;
+  plugin.versions[VERSION] = { ...receipt.registryEntries.plugin, releasedAt: publishedAt,
+    notes: `${receipt.registryEntries.plugin.notes ?? ''} ${BACKEND_REQUIREMENT_NOTE}`.trim() };
+  skill.latestVersion = VERSION;
+  skill.description = `${receipt.excalidrawDescription} Requires the updated Canvas Scene-Service backend.`;
+  skill.sourcePlugin.version = VERSION;
+  skill.versions[VERSION] = { ...receipt.registryEntries.skill, releasedAt: publishedAt,
+    notes: `${receipt.registryEntries.skill.notes ?? ''} ${BACKEND_REQUIREMENT_NOTE}`.trim() };
+  return candidate;
+}
+
+function verifyAheadOfBackendPublication({ publication, registry, registryBytes, receipt }) {
+  requireCondition(publication.schemaVersion === 1 && publication.status === 'published'
+    && publication.name === 'document-suite' && publication.version === VERSION
+    && publication.mode === 'marketplace-before-backend', 'Invalid Marketplace publication record');
+  requireCondition(publication.backendRelease === null && publication.minCanvasVersion === null,
+    'Ahead-of-backend publication must not claim a backend release or minimum version');
+  requireCondition(publication.requiredBackendCommit === receipt.requiredBackendCommit
+    && equal(publication.requiredTools, TOOLS) && publication.checksum === receipt.checksum
+    && publication.preparedRegistryChecksum === receipt.registryChecksum, 'Publication requirements or package provenance mismatch');
+  requireCondition(publication.registryChecksum === sha256(registryBytes), 'Published registry checksum mismatch');
+  requireCondition(Number.isFinite(Date.parse(publication.publishedAt)), 'Invalid publication timestamp');
+  const plugin = registry.plugins.find(entry => entry.name === 'document-suite');
+  const skill = registry.skills.find(entry => entry.name === 'excalidraw-diagram');
+  requireCondition(plugin?.latestVersion === VERSION && equal(plugin.skills, SKILLS)
+    && plugin.description === `${receipt.pluginDescription} Excalidraw requires the updated Canvas Scene-Service backend.`
+    && skill?.latestVersion === VERSION && skill.sourcePlugin?.version === VERSION
+    && skill.description === `${receipt.excalidrawDescription} Requires the updated Canvas Scene-Service backend.`, 'Published registry identity or compatibility description mismatch');
+  for (const [kind, actual] of [['plugin', plugin.versions[VERSION]], ['skill', skill.versions[VERSION]]]) {
+    const prepared = receipt.registryEntries[kind];
+    const expected = { ...prepared, releasedAt: publication.publishedAt,
+      notes: `${prepared.notes ?? ''} ${BACKEND_REQUIREMENT_NOTE}`.trim() };
+    requireCondition(equal(actual, expected), `Published ${kind} metadata or backend notice mismatch`);
+  }
 }
 
 function parseBackendVersion(version) {
@@ -253,7 +310,13 @@ async function main(args) {
   requireCondition(command === 'finalize' ? Boolean(tag) : !tag, 'Only finalize accepts and requires --backend-release');
   const marketplaceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
   const verified = await verifyPreparedPackage({ marketplaceRoot, notebookRoot });
-  if (command === 'verify') { console.log('Document Suite 1.4.0 preparation verified; active registry unchanged.'); return; }
+  if (command === 'verify') {
+    console.log(verified.publication
+      ? 'Document Suite 1.4.0 publication verified; backend update requirement remains explicit.'
+      : 'Document Suite 1.4.0 preparation verified; active registry unchanged.');
+    return;
+  }
+  requireCondition(!verified.publication, 'Document Suite 1.4.0 is already published; do not replace its immutable release metadata.');
   const releaseProof = await fetchReleaseProof(verified.receipt, tag);
   const finalVerified = await verifyPreparedPackage({ marketplaceRoot, notebookRoot });
   requireCondition(equal(finalVerified.receipt, verified.receipt), 'Preparation changed during backend release verification');
